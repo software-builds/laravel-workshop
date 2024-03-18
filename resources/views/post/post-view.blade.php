@@ -2,9 +2,23 @@
 <div>
     @section('title', 'Post Title')
 
+    @auth
+        @include('post.post-store')
+    @endauth
+
     @section('content')
-        <h1>This is a post title.</h1>
-        <p>{{ dump($post) }}</p>
+        <!-- print suceess -->
+        @if (session('success') || session('error'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @foreach($posts as $post)
+            <hr />
+            @include('post.post-show', ['post' => $post])
+        @endforeach
     @endsection
 </div>
 
