@@ -16,10 +16,21 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+        $images = [];
+        for ($i = 0; $i < 3; $i++) {
+            $images[] = $this->faker->imageUrl(640, 480);
+        }
+
         return [
-            'name' => $this->faker->name,
+            'title' => $this->faker->name,
             'price' => $this->faker->randomFloat(2, 1, 100),
+            'rabattPrice' => $this->faker->randomFloat(2, 1, 100),
+            'stock' => $this->faker->numberBetween(0, 3),
             'description' => $this->faker->text,
+            'images' => json_encode($images),
+            'color' => $this->faker->colorName,
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

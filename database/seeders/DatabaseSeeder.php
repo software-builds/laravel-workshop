@@ -6,8 +6,6 @@ use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Factories\ProductFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

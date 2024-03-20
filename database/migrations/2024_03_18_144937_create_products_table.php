@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->decimal('rabattPrice', 10, 2);
+            $table->decimal('rabattPrice', 10, 2)->default(0);
             $table->decimal('price', 10, 2);
             $table->integer('stock');
             $table->json('images');

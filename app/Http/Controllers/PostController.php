@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function view()
     {
-        return view('post.post-view', [
+        return view('blog.post.post-view', [
             'posts' => Post::all()->sortByDesc('created_at'),
         ]);
     }
@@ -22,7 +22,7 @@ class PostController extends Controller
         );
 
         if ($created) {
-            return redirect('/')->with('success', 'Post created successfully');
+            return redirect('/')->with('success', 'Beitrag erfolgreich erstellt');
         }
 
         return redirect('/');
@@ -33,31 +33,31 @@ class PostController extends Controller
         $redirect = redirect('/');
 
         if ($post->delete()) {
-            return $redirect->with('success', 'Post deleted successfully');
+            return $redirect->with('success', 'Beitrag erfolgreich gelöscht');
         }
 
-        return $redirect->with('error', 'Post could not be deleted');
+        return $redirect->with('error', 'Beitrag konnte nicht gelöscht werden');
     }
 
     public function update(PostRequest $request, Post $post)
     {
         if ($post->update($request->validated())) {
-            return redirect('/')->with('success', 'Post updated successfully');
+            return redirect('/')->with('success', 'Beitrag erfolgreich aktualisiert');
         }
 
-        return redirect('/')->with('error', 'Post could not be updated');
+        return redirect('/')->with('error', 'Beitrag konnte nicht aktualisiert werden');
     }
 
     public function updateForm(Post $post)
     {
-        return view('post.post-update', [
+        return view('blog.post.post-update', [
             'post' => $post,
         ]);
     }
 
     public function show(Post $post)
     {
-        return view('post.post-view', [
+        return view('blog.post.post-detail', [
             'post' => $post,
         ]);
     }

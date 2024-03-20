@@ -35,8 +35,8 @@ class PostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'A title is required',
-            'content.required' => 'A content is required',
+            'title.required' => 'Der Titel ist erforderlich!',
+            'content.required' => 'Der Inhalt ist erforderlich!',
         ];
     }
 }
