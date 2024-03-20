@@ -13,12 +13,12 @@ class PostController extends Controller
     {
         $sortOrder = $request->get('sort', 'asc');
 
-        if (!in_array($sortOrder, ['asc', 'desc'])) {
+        if (! in_array($sortOrder, ['asc', 'desc'])) {
             $sortOrder = 'asc';
         }
 
         return view('blog.post.post-view', [
-            'posts' => Post::orderBy('created_at', $sortOrder)->get()
+            'posts' => Post::orderBy('created_at', $sortOrder)->get(),
         ]);
     }
 

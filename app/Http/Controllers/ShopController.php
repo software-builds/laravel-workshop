@@ -14,7 +14,7 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         return view('shop.product.product-overview', [
-            'products' => Product::all()
+            'products' => Product::all(),
         ]);
     }
 
@@ -40,14 +40,15 @@ class ShopController extends Controller
     {
         $card = session()->get('card');
 
-        if (!$card) {
+        if (! $card) {
             session()->flash('error', 'Warenkorb ist leer');
+
             return redirect()->back();
         }
 
         $order = User::find(2)->orders()->create([
             'payment_method' => 'paypal',
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
 
         foreach ($card as $id => $product) {
@@ -62,7 +63,6 @@ class ShopController extends Controller
         return redirect()->route('order-view', ['id' => $order->id]);
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
@@ -72,8 +72,9 @@ class ShopController extends Controller
 
         $product = Product::find($id);
 
-        if (!$product->exists()) {
+        if (! $product->exists()) {
             session()->flash('error', 'Produkt existiert nicht');
+
             return;
         }
 
@@ -108,5 +109,4 @@ class ShopController extends Controller
 
         return redirect()->back();
     }
-
 }
