@@ -35,6 +35,9 @@ Route::get('/checkoutOrder', [ShopController::class, 'checkoutOrder'])
 Route::get('/orders', [OrderController::class, 'index'])
     ->name('orders');
 
+Route::get('/orderView/{id}', [OrderController::class, 'view'])
+    ->name('order-view');
+
 Route::middleware('auth')->group(function () {
     // Creation
     Route::post('/', [PostController::class, 'store'])

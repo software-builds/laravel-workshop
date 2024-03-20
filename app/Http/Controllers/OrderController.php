@@ -2,14 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $sortOrder = $request->get('sort', 'asc');
+
+        if (!in_array($sortOrder, ['asc', 'desc'])) {
+            $sortOrder = 'asc';
+        }
+
         return view('shop.order.order-overview', [
-            'orders' => User::find(2)->orders,
+            'orders' => Order::orderBy('id', $sortOrder)->get(),
+        ]);
+    }
+
+    public function view(int $id)
+    {
+        return view('shop.order.order-view', [
+            'order' => Order::find($id),
         ]);
     }
 }

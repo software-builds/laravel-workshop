@@ -21,11 +21,14 @@ class ProductFactory extends Factory
             $images[] = $this->faker->imageUrl(640, 480);
         }
 
+        $price = $this->faker->randomFloat(2, 1, 100);
+        $rabattPrice = $this->faker->randomFloat(2, 1, 100);
+
         return [
-            'title' => $this->faker->name,
-            'price' => $this->faker->randomFloat(2, 1, 100),
-            'rabattPrice' => $this->faker->randomFloat(2, 1, 100),
-            'stock' => $this->faker->numberBetween(0, 3),
+            'title' => $this->faker->sentence(3),
+            'price' => $price,
+            'rabattPrice' => $rabattPrice < $price ? $rabattPrice : null,
+            'stock' => $this->faker->numberBetween(0, 20),
             'description' => $this->faker->text,
             'images' => json_encode($images),
             'color' => $this->faker->colorName,

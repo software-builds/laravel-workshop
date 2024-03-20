@@ -3,9 +3,12 @@
 <div class="min-h-screen flex flex-col items-center justify-center my-16 gap-16">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @foreach($orders as $order)
-            <div>
-                <h1>{{ $order->id }} - {{ count($order->products) }}</h1>
-            </div>
+            @include('shop.order.order-teaser', [
+              'order' => $order,
+              'total' => $order->products->map(function($product) {
+                    return $product->price * $product->pivot->quantity;
+                })->sum()
+            ])
         @endforeach
     </div>
 </div>

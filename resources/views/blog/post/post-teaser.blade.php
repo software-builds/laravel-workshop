@@ -3,8 +3,8 @@
 <a href="{{ route('show', $post) }}">
     <div href="{{ route('show', $post) }}" class="hover:bg-gray-200 p-5 transition-colors duration-300">
         <div class="space-y-5">
-            <h1 class="text-3xl mb-5 font-bold font-serif">{{ $post->title }}</h1>
-            <p>{{ Str::limit($post->content, 150) }}</p>
+            <h1 class="text-3xl mb-5 text-primary font-bold font-serif">{{ $post->title }}</h1>
+            <p class="font-light">{{ Str::limit($post->content, 150) }}</p>
             <div class="flex justify-between items-center">
                 <span class="inline-block text-xs font-light">
                     von <span class="font-bold">{{ $post->user->name }}</span>

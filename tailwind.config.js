@@ -6,7 +6,15 @@ export default {
       "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+            'primary': '#F09092',
+            'secondary': {
+                100: '#E2E2D5',
+                200: '#888883',
+            }
+        },
+    },
   },
   plugins: [require('@tailwindcss/typography'),],
 }

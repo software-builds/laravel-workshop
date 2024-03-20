@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function view()
+    public function view(Request $request)
     {
+        $sortOrder = $request->get('sort', 'asc');
+
+        if (!in_array($sortOrder, ['asc', 'desc'])) {
+            $sortOrder = 'asc';
+        }
+
         return view('blog.post.post-view', [
-            'posts' => Post::all()->sortByDesc('created_at'),
+            'posts' => Post::orderBy('created_at', $sortOrder)->get()
         ]);
     }
 

@@ -1,4 +1,4 @@
-<header class="shadow-sm bg-gray-100 flex justify-center">
+<header class="shadow-sm bg-gray-100 z-100 flex justify-center">
     <nav class="w-screen max-w-[80ch] w-full">
        <ul class="flex justify-between items-center h-12">
            <li class="hover:bg-gray-200">

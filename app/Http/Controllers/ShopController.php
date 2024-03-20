@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('shop.product.product-overview', [
-            'products' => Product::all(),
+            'products' => Product::all()
         ]);
     }
 
@@ -44,7 +45,7 @@ class ShopController extends Controller
             return redirect()->back();
         }
 
-        $order = User::find(1)->orders()->create([
+        $order = User::find(2)->orders()->create([
             'payment_method' => 'paypal',
             'status' => 'pending'
         ]);
@@ -58,7 +59,7 @@ class ShopController extends Controller
         session()->forget('card');
         session()->flash('success', 'Bestellung wurde erfolgreich abgeschlossen');
 
-        return redirect()->route('home');
+        return redirect()->route('order-view', ['id' => $order->id]);
     }
 
 
