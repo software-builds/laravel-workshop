@@ -20,6 +20,10 @@ Route::get('/shop', [ShopController::class, 'index'])
 Route::get('/shop/sales', [ShopController::class, 'sales'])
     ->name('shop-sales');
 
+// product view
+Route::get('/shop/{id}', [ShopController::class, 'detail'])
+    ->name('shop-view');
+
 Route::get('/addToCheckout/{id}', [ShopController::class, 'addToCheckout'])
     ->name('checkout-add');
 

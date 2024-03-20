@@ -43,11 +43,15 @@
             </div>
             <!-- Add/Remove button based on checkout -->
             <div class="mt-4">
+                <!-- VIEW detail page -->
+                @if(isset($detail) && $detail)
+                    <a href="{{ route('shop-view', $product) }}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-md focus:outline-none hover:bg-blue-700">Info</a>
+                @endif
                 @if(isset($checkout) && $checkout && (!isset($order) || !$order))
-                    <a href="{{ route('checkout-remove', $product) }}" class="inline-block px-4 py-2 bg-red-600 text-white rounded-md focus:outline-none hover:bg-red-700">Remove from Cart</a>
+                    <a href="{{ route('checkout-remove', $product) }}" class="inline-block px-4 py-2 bg-red-600 text-white rounded-md focus:outline-none hover:bg-red-700">Entfernen</a>
                 @elseif($product->stock > 0 && (!isset($order) || !$order))
                     <!-- Add to Cart button with form -->
-                    <a href="{{ route('checkout-add', $product) }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-md focus:outline-none hover:bg-green-700">Add to Cart</a>
+                    <a href="{{ route('checkout-add', $product) }}" class="inline-block px-4 py-2 bg-green-600 text-white rounded-md focus:outline-none hover:bg-green-700">In den Warenkorb</a>
                 @endif
             </div>
         </div>

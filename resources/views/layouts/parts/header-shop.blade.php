@@ -3,17 +3,17 @@
     <nav>
         <ul class="font-serif text-lg flex h-full items-center gap-10 text-primary">
             <li>
-                <a href="{{ route('home') }}" class="hover:opacity-75">Our News</a>
+                <a href="{{ route('home') }}" class="hover:opacity-75">News</a>
             </li>
             <li>
-                <a href="{{ route('shop') }}" class="hover:opacity-75">Our Shop</a>
+                <a href="{{ route('shop') }}" class="hover:opacity-75">Unser Shop</a>
             </li>
             <li>
-                <a href="{{ route('shop-sales') }}" class="hover:opacity-75">Our Sales</a>
+                <a href="{{ route('shop-sales') }}" class="hover:opacity-75">Angebote</a>
             </li>
             <li>
                 <a href="{{ route('checkout') }}" class="flex items-center gap-2 justify-center hover:opacity-75">
-                    Widthraw
+                    Warenkorb
                     <div class="flex gap-1">
                         <div class="relative my-auto">
                             <div class="w-4 h-4 relative rounded-full bg-primary animate-pulse"></div>

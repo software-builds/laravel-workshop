@@ -35,6 +35,13 @@ class ShopController extends Controller
         ]);
     }
 
+    public function detail(int $id)
+    {
+        return view('shop.product.product-detail', [
+            'product' => Product::find($id),
+        ]);
+    }
+
     // checkout for order.
     public function checkoutOrder()
     {

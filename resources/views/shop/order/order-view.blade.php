@@ -26,7 +26,7 @@
         <!-- List all order products -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             @foreach($order->products as $product)
-                @include('shop.product.product-teaser', ['product' => $product, 'order' => true])
+                @include('shop.product.product-teaser', ['product' => $product, 'order' => true, 'detail' => true])
             @endforeach
         </div>
     </div>
