@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class ShopController extends Controller
 {
@@ -14,68 +13,99 @@ class ShopController extends Controller
     public function index()
     {
         return view('shop.product.product-overview', [
-            'products' => Product::all()
+            'products' => Product::all(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function checkout(int $id)
+    public function sales()
     {
-        $order = Order::find($id);
+        return view('shop.product.product-overview', [
+            'products' => Product::whereNotNull('rabattPrice')->get(),
+        ]);
+    }
 
-        if (!$order->exists()) {
-           $order = new Order();
+    public function checkout()
+    {
+        return view('shop.checkout.checkout', [
+            'products' => session()->get('card') ?? [],
+            'total' => session()->get('card') ? array_sum(array_map(function ($product) {
+                return $product['product']->price * $product['quantity'];
+            }, session()->get('card'))) : 0,
+        ]);
+    }
+
+    // checkout for order.
+    public function checkoutOrder()
+    {
+        $card = session()->get('card');
+
+        if (!$card) {
+            session()->flash('error', 'Warenkorb ist leer');
+            return redirect()->back();
         }
 
-        return view('shop.checkout.checkout', [
-            'order' => $order,
-            'totalPrice' => $order->products->sum('price')
+        $order = User::find(1)->orders()->create([
+            'payment_method' => 'paypal',
+            'status' => 'pending'
         ]);
+
+        foreach ($card as $id => $product) {
+            $order->products()->attach($id, [
+                'quantity' => $product['quantity'],
+            ]);
+        }
+
+        session()->forget('card');
+        session()->flash('success', 'Bestellung wurde erfolgreich abgeschlossen');
+
+        return redirect()->route('home');
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function addToCheckout(Request $request)
+    public function addToCheckout(int $id)
     {
-        $product = Product::find($request->id);
-        $product->orders()->attach($request->id);
-        return redirect()->route('checkout');
+        $card = session()->get('card');
+
+        $product = Product::find($id);
+
+        if (!$product->exists()) {
+            session()->flash('error', 'Produkt existiert nicht');
+            return;
+        }
+
+        if (isset(session()->get('card')[$id])) {
+            $card[$id]['quantity']++;
+        } else {
+            $card[$id] = [
+                'quantity' => 1,
+                'product' => $product,
+            ];
+        }
+
+        session()->put('card', $card);
+        session()->flash('success', 'Produkt wurde erfolgreich hinzugefügt');
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function removeFromCheckout(string $id)
+    public function removeFromCheckout(int $id)
     {
-        $product = Product::find($id);
-        $product->orders()->detach($id);
-        return redirect()->route('checkout');
+        $card = session()->get('card');
+
+        if (isset($card[$id])) {
+            unset($card[$id]);
+        }
+
+        session()->put('card', $card);
+        session()->flash('success', 'Produkt wurde erfolgreich entfernt');
+
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

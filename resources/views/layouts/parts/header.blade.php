@@ -8,7 +8,7 @@
                <a class="px-2 h-full" href="{{ route('shop') }}">Shop</a>
            </li>
            <li class="hover:bg-gray-200">
-               <a class="px-2 h-full" href="{{ route('shop-sale') }}">Sonderangebote</a>
+               <a class="px-2 h-full" href="{{ route('shop-sales') }}">Sonderangebote</a>
            </li>
            <li class="hover:bg-gray-200">
                <a class="px-2 h-full" href="{{ route('checkout') }}">Warenkorb</a>

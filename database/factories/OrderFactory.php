@@ -21,7 +21,6 @@ class OrderFactory extends Factory
             'status' => $this->faker->randomElement(['pending', 'paid', 'shipped', 'delivered']),
             'payment_method' => $this->faker->randomElement(['credit_card', 'paypal', 'cash']),
             'user_id' => User::all()->random()->id,
-            'total' => $this->faker->numberBetween(1, 10),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
