@@ -93,9 +93,13 @@ class ShopController extends Controller
         $product = Product::find($id);
 
         if (! $product->exists()) {
-            session()->flash('error', 'Produkt existiert nicht');
+            session()->flash('error_' . $id, 'Produkt existiert nicht');
+            return redirect()->back();
+        }
 
-            return;
+        if (isset($card[$id]) && $product->stock < $card[$id]['quantity'] + 1) {
+            session()->flash('error_' . $id, 'Produkt nicht auf Lager');
+            return redirect()->back();
         }
 
         if (isset($card[$id])) {
@@ -108,7 +112,7 @@ class ShopController extends Controller
         }
 
         session()->put('card', $card);
-        session()->flash('success', 'Produkt wurde erfolgreich hinzugefügt');
+        session()->flash('success_' . $id, 'Produkt wurde erfolgreich hinzugefügt');
 
         return redirect()->back();
     }

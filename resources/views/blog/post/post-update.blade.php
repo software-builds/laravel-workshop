@@ -5,7 +5,7 @@
 @section('content')
            <!-- create form for post -->
            <h1 class="text-3xl font-bold">Beitrag bearbeiten</h1>
-           <form class="flex flex-col space-y-5 w-full" action="{{ route('update', $post) }}" method="post">
+           <form class="flex flex-col space-y-5" action="{{ route('update', $post) }}" method="post">
                @csrf
                @method('PATCH')
                <input type="text" name="title" class="font-bold p-3" id="title" value="{{ $post->title  }}" placeholder="Beitragstitel">

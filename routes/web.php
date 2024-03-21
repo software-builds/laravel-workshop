@@ -49,8 +49,7 @@ Route::middleware('auth')->group(function () {
 
     // Deletion
     Route::delete('/{post}', [PostController::class, 'destroy'])
-        ->name('destroy')
-        ->can('delete', 'post');
+        ->name('destroy');
 
     // Update
     Route::get('/edit/{post}', [PostController::class, 'updateForm'])
