@@ -1,7 +1,7 @@
 <header class="shadow-md flex items-center justify-around sticky z-50 top-0 bg-white py-3">
     @include('layouts.parts.logo')
     <nav>
-        <ul class="font-serif text-lg flex h-full items-center gap-10 text-primary">
+        <ul class="font-serif text-lg flex flex-col md:flex-row h-full items-center gap-10 text-primary">
             <li>
                 <a href="{{ route('home') }}" class="hover:opacity-75">News</a>
             </li>

@@ -8,7 +8,7 @@
     </head>
     <body class="min-h-screen flex flex-col bg-gray-100 opacity-10" onload="addLoaded()">
         @include('layouts.parts.header')
-        <div class="md:max-w-[80ch] w-full flex-1 mx-5 md:mx-auto mt-8">
+        <div class="md:max-w-[80ch] flex-1 mx-5 md:mx-auto mt-8">
             @yield('content')
         </div>
         @include('layouts.parts.footer')

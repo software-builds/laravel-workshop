@@ -2,7 +2,8 @@
 @extends('layouts.standard')
 
 @section('content')
-    <div class="flex flex-col w-full p-4">
+    <div class="flex flex-col w-full my-10">
+        <h1 class="font-serif text-primary text-4xl font-bold mb-2">Bestellung</h1>
         <div class="w-full grid grid-cols-2 bg-white rounded-lg text-white shadow-md gap-10 p-6 mb-8">
             <!-- Title -->
             <div class="w-32 space-y-4">

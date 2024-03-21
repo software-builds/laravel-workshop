@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- make a cool checkout with products tailwindcss -->
-    <div class="my-auto flex flex-col items-center justify-center my-16 gap-16">
+    <div class="flex flex-col items-center justify-center my-16 gap-16">
         <h1 class="text-primary text-4xl font-bold font-serif">Warenkorb</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             @if($products)
@@ -12,7 +12,7 @@
                     </div>
                 @endforeach
             @else
-                <div class="flex col-span-2 flex-col items-center justify-center w-full p-4">
+                <div class="flex md:col-span-2 flex-col items-center justify-center p-4">
                     <h1 class="text-2xl font-semibold">Ihr Warenkorb ist leer!</h1>
                     <a href="{{ route('shop') }}" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none hover:bg-blue-600">Zurück zum Shop!</a>
                 </div>
