@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -27,7 +26,7 @@ class PostController extends Controller
 
     public function store(PostRequest $request)
     {
-        $created = User::find(1)->posts()->create(
+        $created = Auth::user()->posts()->create(
             $request->validated()
         );
 
@@ -42,8 +41,10 @@ class PostController extends Controller
     {
         $redirect = redirect('/');
 
-        if ($post->delete()) {
+        if (Auth::user()->can('delete', $post) && $post->delete()) {
             return $redirect->with('success', 'Beitrag erfolgreich gelöscht');
+        } else {
+            return $redirect->with('error', 'Beitrag konnte nicht gelöscht werden');
         }
 
         return $redirect->with('error', 'Beitrag konnte nicht gelöscht werden');

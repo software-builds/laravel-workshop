@@ -25,7 +25,7 @@ class OrderController extends Controller
     {
         return view('shop.order.order-view', [
             'order' => Order::find($id),
-            'total' =>  Order::find($id)->products->map(function($product) {
+            'total' => Order::find($id)->products->map(function ($product) {
                 return ($product->rabattPrice ?? $product->price) * $product->pivot->quantity;
             })->sum(),
         ]);

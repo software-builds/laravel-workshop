@@ -30,6 +30,7 @@ class ShopController extends Controller
     public function checkout()
     {
         $cards = session()->get('card') ?? [];
+
         return view('shop.checkout.checkout', [
             'products' => $cards,
             'total' => $cards ? array_sum(array_map(function ($product) {
@@ -71,6 +72,7 @@ class ShopController extends Controller
                 $product['product']->save();
             } else {
                 session()->flash('error', 'Produkt nicht auf Lager');
+
                 return redirect()->back();
             }
         }

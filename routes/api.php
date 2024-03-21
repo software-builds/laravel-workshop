@@ -16,11 +16,11 @@ Route::middleware(['auth:api'])->group(function () {
         return $request->user();
     });
 
-    Route::get('/products', function() {
+    Route::get('/products', function () {
         return ProductResource::collection(Product::all());
     });
 
-    Route::get('/orders', function() {
+    Route::get('/orders', function () {
         return OrderResource::collection(Order::all());
     });
 
