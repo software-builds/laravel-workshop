@@ -14,6 +14,7 @@ class ShopController extends Controller
     public function index(Request $request)
     {
         return view('shop.product.product-overview', [
+            'headline' => 'Unsere Produkte',
             'products' => Product::all(),
         ]);
     }
@@ -21,17 +22,19 @@ class ShopController extends Controller
     public function sales()
     {
         return view('shop.product.product-overview', [
+            'headline' => 'Unsere Produkte im Angebot',
             'products' => Product::whereNotNull('rabattPrice')->get(),
         ]);
     }
 
     public function checkout()
     {
+        $cards = session()->get('card') ?? [];
         return view('shop.checkout.checkout', [
-            'products' => session()->get('card') ?? [],
-            'total' => session()->get('card') ? array_sum(array_map(function ($product) {
-                return $product['product']->price * $product['quantity'];
-            }, session()->get('card'))) : 0,
+            'products' => $cards,
+            'total' => $cards ? array_sum(array_map(function ($product) {
+                return ($product['product']->rabattPrice ?? $product['product']->price) * $product['quantity'];
+            }, $cards)) : 0,
         ]);
     }
 
@@ -62,6 +65,14 @@ class ShopController extends Controller
             $order->products()->attach($id, [
                 'quantity' => $product['quantity'],
             ]);
+
+            if ($product['product']->stock >= $product['quantity']) {
+                $product['product']->stock -= $product['quantity'];
+                $product['product']->save();
+            } else {
+                session()->flash('error', 'Produkt nicht auf Lager');
+                return redirect()->back();
+            }
         }
 
         session()->forget('card');
@@ -85,7 +96,7 @@ class ShopController extends Controller
             return;
         }
 
-        if (isset(session()->get('card')[$id])) {
+        if (isset($card[$id])) {
             $card[$id]['quantity']++;
         } else {
             $card[$id] = [

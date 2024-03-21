@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loaded {
+    @apply transition-opacity duration-200 opacity-100;
+}

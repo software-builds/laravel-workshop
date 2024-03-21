@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -17,8 +18,10 @@ class PostController extends Controller
             $sortOrder = 'asc';
         }
 
+        $posts = Post::orderBy('created_at', $sortOrder)->with('user')->get();
+
         return view('blog.post.post-view', [
-            'posts' => Post::orderBy('created_at', $sortOrder)->get(),
+            'posts' => $posts,
         ]);
     }
 

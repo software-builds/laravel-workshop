@@ -11,7 +11,7 @@
                 @default <h1 class="text-xl text-gray-900 font-semibold mb-2">Offen</h1>@break
             @endswitch
             <!-- Description -->
-            <p class="text-gray-600 font-light mb-2">{{ $order->price }}</p>
+            <p class="text-gray-600 font-light mb-2">{{ $total }}</p>
             <!-- Color Indicator -->
             @switch($order->status)
                 @case('paid') <div class="w-fit p-2 rounded-full mr-2" style="background-color: green">Bezahlt</div> @break
@@ -26,7 +26,7 @@
         <!-- List all order products -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             @foreach($order->products as $product)
-                @include('shop.product.product-teaser', ['product' => $product, 'order' => true, 'detail' => true])
+                @include('shop.product.product-teaser', ['product' => $product, 'order' => true, 'detail' => true, 'quantity' => $product->pivot->quantity])
             @endforeach
         </div>
     </div>
